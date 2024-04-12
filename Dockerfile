@@ -1,4 +1,5 @@
 # https://github.com/pddg/latex-docker
+
 FROM ubuntu:20.04
 
 ARG TEXLIVE_VERSION=2024
@@ -13,23 +14,16 @@ RUN apt-get update && \
     curl \
     make \
     wget \
-    libfontconfig1-dev \
-    libfreetype6-dev \
-    ghostscript \
     perl && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir /tmp/install-tl-unx && \
-    curl -L https://ftp.math.utah.edu/pub/tex/historic/systems/texlive/${TEXLIVE_VERSION}/install-tl-unx.tar.gz \
-    | tar -xzv -C /tmp/install-tl-unx --strip-components=1 && \
-    /bin/echo -e 'selected_scheme scheme-basic\ntlpdbopt_install_docfiles 0\ntlpdbopt_install_srcfiles 0' \
-    > /tmp/install-tl-unx/texlive.profile && \
-    /tmp/install-tl-unx/install-tl \
-    -profile /tmp/install-tl-unx/texlive.profile && \
-    rm -r /tmp/install-tl-unx && \
-    ln -sf /usr/local/texlive/${TEXLIVE_VERSION}/bin/$(uname -m)-linux /usr/local/texlive/bin
+RUN cd /tmp \
+    && curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+    && zcat < install-tl-unx.tar.gz | tar xf - \
+    && cd install-tl-*/ \
+    && perl ./install-tl --no-interaction 
 
 RUN tlmgr update --self && \
     tlmgr install \
