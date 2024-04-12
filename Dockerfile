@@ -2,12 +2,9 @@
 
 FROM ubuntu:20.04
 
-ARG TEXLIVE_VERSION=2024
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
 ENV PATH="/usr/local/texlive/bin:$PATH"
-ENV LC_ALL=C
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -22,9 +19,9 @@ RUN apt-get update && \
 
 # Install texlive
 RUN cd /tmp 
-RUN wget --no-check-certificate -nv https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN wget https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 RUN tar -xzf ./install-tl-unx.tar.gz --strip-components=1
-RUN ./install-tl 
+RUN ./install-tl --no-interaction
 RUN ln -sf /usr/local/texlive/*/bin/* /usr/local/bin/texlive
 
 
