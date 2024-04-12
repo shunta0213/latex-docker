@@ -13,16 +13,18 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
     make \
+    wget \
     perl && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp 
-RUN curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz 
-RUN zcat < install-tl-unx.tar.gz | tar xf - \
-    && cd install-tl-*/ 
-RUN perl ./install-tl --no-interaction 
+RUN cd /tmp \
+    && wget -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+    && tar zxvf install-tl-unx.tar.gz \
+    && cd install-tl-*/ \
+    && perl ./install-tl --no-interaction
+
 
 RUN tlmgr update --self && \
     tlmgr install \
