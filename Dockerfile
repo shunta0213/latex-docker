@@ -20,7 +20,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp \
-    && wget -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
+    && wget --no-check-certificate -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
     && tar zxvf install-tl-unx.tar.gz \
     && cd install-tl-*/ \
     && perl ./install-tl --no-interaction
