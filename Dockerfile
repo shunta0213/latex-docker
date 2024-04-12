@@ -22,10 +22,10 @@ RUN apt-get update && \
 
 # Install texlive
 RUN cd /tmp 
-RUN wget --no-check-certificate -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz 
-RUN tar zxvf install-tl-unx.tar.gz 
-RUN cd install-tl-*/ 
-RUN perl ./install-tl --no-interaction
+RUN wget -nv https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+RUN tar -xzf ./install-tl-unx.tar.gz --strip-components=1
+RUN ./install-tl 
+RUN ln -sf /usr/local/texlive/*/bin/* /usr/local/bin/texlive
 
 
 RUN tlmgr update --self && \
