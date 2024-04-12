@@ -19,11 +19,13 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp \
-    && wget --no-check-certificate -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz \
-    && tar zxvf install-tl-unx.tar.gz \
-    && cd install-tl-*/ \
-    && perl ./install-tl --no-interaction
+
+# Install texlive
+RUN cd /tmp 
+RUN wget --no-check-certificate -O install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz 
+RUN tar zxvf install-tl-unx.tar.gz 
+RUN cd install-tl-*/ 
+RUN perl ./install-tl --no-interaction
 
 
 RUN tlmgr update --self && \
