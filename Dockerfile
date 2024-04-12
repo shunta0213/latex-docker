@@ -18,8 +18,8 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN cd /tmp \
-    && curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz 
+RUN cd /tmp 
+RUN curl -L -o install-tl-unx.tar.gz https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz 
 RUN zcat < install-tl-unx.tar.gz | tar xf - \
     && cd install-tl-*/ 
 RUN perl ./install-tl --no-interaction 
