@@ -2,9 +2,6 @@ name: build and push
 
 on:
   push:
-    branches:
-     - main
-     - develop
     tags:
      - "v*"
   workflow_dispatch:
