@@ -3,6 +3,9 @@ FROM paperist/texlive-ja:latest
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/root/.anyenv/bin:$PATH"
 
+# propmpt
+COPY ./.bashrc ~/.bashrc
+
 RUN apt update && apt upgrade \
     && apt install -y \
     git \
@@ -27,7 +30,8 @@ RUN anyenv install nodenv
 RUN anyenv install pyenv
 
 RUN cpan -i App::cpanminus \
-    && cpanm YAML::Tiny
+    && cpanm YAML::Tiny \
+    && cpanm File::HomeDir
 
 
 RUN tlmgr install \
