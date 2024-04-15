@@ -7,10 +7,15 @@ ENV PATH="/root/.anyenv/bin:$PATH"
 COPY ./.prompt ~/.prompt
 RUN echo 'source ~/.prompt' >> ~/.bashrc
 
+# add japanese mirror
+RUN echo "deb http://ftp.jp.debian.org/debian/ bookworm main contrib non-free non-free-firmware" > "/etc/apt/sources.list"
+
 RUN apt update && apt upgrade \
     && apt install -y \
     git \
     locales \
+    # fonts
+    ttf-mscorefonts-installer \
     # pyenv requirements
     build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 
