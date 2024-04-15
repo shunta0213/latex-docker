@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH="/root/.anyenv/bin:$PATH"
 
 # propmpt
-COPY ./prompt ~/.prompt
+COPY ./.prompt ~/.prompt
 RUN echo 'source ~/.prompt' >> ~/.bashrc
 
 RUN apt update && apt upgrade \
