@@ -1,46 +1,37 @@
-# https://github.com/pddg/latex-docker
-
-FROM ubuntu:20.04
+FROM paperist/texlive-ja:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV DEBCONF_NOWARNINGS=yes
-ENV PATH="/usr/local/texlive/bin:$PATH"
+ENV PATH="/root/.anyenv/bin:$PATH"
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    curl \
-    make \
-    wget \
-    perl && \
-    apt-get clean && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt update && apt upgrade \
+    && apt install -y \
+    git \
+    locales \
+    # pyenv requirements
+    build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
+RUN git clone https://github.com/anyenv/anyenv ~/.anyenv \
+    && echo 'eval "$(anyenv init -)"' >> ~/.bashrc \
+    && export PATH="$HOME/.anyenv/bin:$PATH" \
+    && echo y | anyenv install --init \
+    && apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen
+
+RUN mkdir -p /usr/local/ssl/certs \
+    && ln -s /etc/ssl/certs /usr/local/ssl/certs
+
+RUN anyenv install nodenv
+RUN anyenv install pyenv
+
+RUN cpan -i App::cpanminus \
+    && cpanm YAML::Tiny
 
 
-# Install texlive
-RUN cd /tmp 
-RUN wget --no-check-certificate https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
-RUN tar -xzf ./install-tl-unx.tar.gz --strip-components=1
-RUN ./install-tl --no-interaction
-RUN ln -sf /usr/local/texlive/*/bin/* /usr/local/bin/texlive
-
-
-RUN tlmgr update --self && \
-    tlmgr install \
-    collection-bibtexextra \
-    collection-fontsrecommended \
-    collection-langenglish \
-    collection-langjapanese \
-    collection-latexextra \
-    collection-latexrecommended \
-    collection-luatex \
-    collection-mathscience \
-    collection-plaingeneric \
-    collection-xetex \
-    latexmk \
-    latexdiff
-
-WORKDIR /workdir
-
-COPY .latexmkrc /
-COPY .latexmkrc /root/
+RUN tlmgr install \
+    latexindent \
+    luacode \
+    luatexja \
+    geometry
