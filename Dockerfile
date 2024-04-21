@@ -44,4 +44,9 @@ RUN tlmgr install \
     latexindent \
     luacode \
     luatexja \
-    geometry
+    geometry \
+    biblatex \
+    biber \
+    physics2 \
+    fixdif \
+    derivative 
