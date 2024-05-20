@@ -49,4 +49,5 @@ RUN tlmgr install \
     biber \
     physics2 \
     fixdif \
-    derivative 
+    derivative \
+    dvipng
