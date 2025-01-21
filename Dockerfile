@@ -1,4 +1,4 @@
-FROM paperist/texlive-ja:latest
+FROM paperist/texlive-ja@sha256:24833fbc17cfa7593f9afd6d8008c97d1c040a9fd6560f6dc0fd2efb2581865e
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -54,6 +54,8 @@ RUN mkdir -p /usr/local/ssl/certs \
 RUN cpan -i App::cpanminus \
     && cpanm YAML::Tiny \
     && cpanm File::HomeDir
+
+RUN tlmgr update --self --all
 
 RUN tlmgr install \
     latexindent \
