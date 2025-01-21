@@ -1,16 +1,19 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base"
+        "config:recommended"
     ],
     "schedule": [
         "every weekend"
     ],
-    "docker": {
-        "enabled": true,
-        "pinDigests": true
-    },
     "packageRules": [
+        {
+            "matchCategories": [
+                "docker"
+            ],
+            "enabled": true,
+            "pinDigests": true
+        },
         {
             "matchUpdateTypes": [
                 "minor",
