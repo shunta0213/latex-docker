@@ -1,4 +1,4 @@
-FROM paperist/texlive-ja@sha256:3c240aa3cd00ac8d77a0ee66956ce8ce750dbe2be7e0ed7b08a5febeacb05229
+FROM paperist/texlive-ja@sha256:7a2f347d1779aadb249491b2c8a56236cff42c81aa7a1b94642496880a4aa83a
 
 ENV DEBIAN_FRONTEND=noninteractive
 
