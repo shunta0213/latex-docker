@@ -2,8 +2,8 @@ name: build and push
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - "main"
   workflow_dispatch:
 
 permissions:
@@ -37,4 +37,6 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ${{env.REGISTRY}}/${{ github.repository }}:${{ github.ref_name }}
+          tags: |
+              ${{env.REGISTRY}}/${{ github.repository }}:${{ github.ref_name }}
+              ${{env.REGISTRY}}/${{ github.repository }}:${{ github.sha }}
