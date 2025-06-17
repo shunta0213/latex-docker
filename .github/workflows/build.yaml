@@ -2,8 +2,8 @@ name: build and push
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - "main"
   workflow_dispatch:
 
 permissions:
