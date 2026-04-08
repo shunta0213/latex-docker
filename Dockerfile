@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
     libbz2-dev \
     libreadline-dev \
     libsqlite3-dev \
-    libncursesw5-dev \
+    libncurses-dev \
     xz-utils \
     tk-dev \
     libxml2-dev \
